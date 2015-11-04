@@ -1,14 +1,21 @@
 package nl.tvj.studenthome;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
     Database dbm = new Database();
     Gebruiker gebruiker;
     Studentenhuis studentenhuis;
-
+    ArrayList<Gebruiker>wieIsThuis = new ArrayList<>();
+    SwipeRefreshLayout  swipeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +48,16 @@ public class MainActivity extends AppCompatActivity {
         studentenhuis = gson.fromJson(s, Studentenhuis.class);
         //Userlokatie update starten
         setUserLocation();
+        setTitle(studentenhuis.getNaam());
+        new addListThuis().execute((Void[]) null);
+        //swipelayout
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new addListThuis().execute((Void[]) null);
+            }
+        });
     }
 
     @Override
@@ -108,6 +126,25 @@ public class MainActivity extends AppCompatActivity {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         }catch(Exception ex){
             ex.printStackTrace();
+        }
+    }
+    private class addListThuis extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                wieIsThuis = dbm.getAanwezigeGebruikers(studentenhuis.id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void param) {
+            final ArrayAdapter<Gebruiker> itemsAdapter = new ArrayAdapter<Gebruiker>(MainActivity.this, android.R.layout.simple_list_item_1, wieIsThuis);
+            final ListView lvWieIsThuis = (ListView) findViewById(R.id.lvAanwezigeGebruikers);
+            lvWieIsThuis.setAdapter(itemsAdapter);
+            swipeLayout.setRefreshing(false);
         }
     }
 }

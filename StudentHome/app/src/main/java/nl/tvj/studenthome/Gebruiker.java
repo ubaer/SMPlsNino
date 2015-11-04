@@ -39,4 +39,9 @@ public class Gebruiker {
     public String getNaam(){
         return naam;
     }
+
+    @Override
+    public String toString() {
+        return naam;
+    }
 }
