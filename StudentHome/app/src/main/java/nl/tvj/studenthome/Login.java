@@ -1,5 +1,6 @@
 package nl.tvj.studenthome;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -23,6 +24,8 @@ public class Login extends AppCompatActivity {
     EditText editPassword;
     String username;
     String password;
+    Gebruiker g;
+    Studentenhuis s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +75,18 @@ public class Login extends AppCompatActivity {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+             g = null;
+            try {
+                g = db.getGebruikerVanGebruikersnaam(username);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            s = null;
+            try {
+                s = db.getStudentenHuis(1);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
@@ -83,19 +98,6 @@ public class Login extends AppCompatActivity {
 
                 //  Gebruiker en studentenhuis ophalen uit de database
 
-                Gebruiker g = null;
-                try {
-                    g = db.getGebruikerVanGebruikersnaam(username);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                Studentenhuis s = null;
-                try {
-                    s = db.getStudentenHuis(1);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
                 //  Omzetten naar JSON objecten zodat deze in de Shared Preferences opgeslagen kunnen
                 //  worden
                 if (g != null && s != null)
@@ -106,16 +108,17 @@ public class Login extends AppCompatActivity {
 
                     //  In shared preferences de session (ingelogde gebruiker en bijbehorende studentenhuis)
                     //  opslaan
-                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(Login.this);
+                    SharedPreferences sharedPref  = getSharedPreferences("User", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("user", ingelogdeGebruiker);
+                    editor.putString("logedInUser", ingelogdeGebruiker);
                     editor.putString("home", studentenhuis);
+                    editor.commit();
                 }
 
                 //  Open 'main menu' scherm van een studentenhuis
-                Intent mainMenu = new Intent(Login.this, MainMenu.class);
+                Intent mainActivity = new Intent(Login.this, MainActivity.class);
                 System.out.println("Opened main menu");
-                Login.this.startActivity(mainMenu);
+                Login.this.startActivity(mainActivity);
             }
             else
             {

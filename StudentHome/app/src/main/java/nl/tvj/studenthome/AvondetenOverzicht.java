@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -71,7 +72,11 @@ public class AvondetenOverzicht extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            activiteiten = db.getAllAvondEten();
+            try {
+                activiteiten = db.getAllAvondEten();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
