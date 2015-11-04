@@ -115,9 +115,9 @@ public class Database {
         try {
             connect();
             java.text.SimpleDateFormat sdf =
-                    new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    new java.text.SimpleDateFormat("yy-MM-dd HH:mm:ss");
             String currentTime = sdf.format(activiteit.starttijd);
-            conn.createStatement().execute("INSERT INTO Activiteit(totdaalbedrag, omschrijving, GebruikerID, starttijd)VALUES(" + activiteit.totaalbedrag + "," +"\"" + activiteit.omschrijving + "\""+ "," + activiteit.host.getId() + "," + currentTime+ ");");
+            conn.createStatement().execute("INSERT INTO Activiteit(totdaalbedrag, omschrijving, GebruikerID, starttijd)VALUES(" + activiteit.totaalbedrag + "," +"\"" + activiteit.omschrijving + "\""+ "," + activiteit.host.getId() + "," + "\""+currentTime+ "\");");
             int maxID = getMaxActiviteitID();
             conn.createStatement().execute("INSERT INTO Activiteit_Studentenhuis VALUES ("+studentenhuis.getId()+","+maxID+") "); // toevoegen aan Studenthuis Activiteit
             gelukt = true;
