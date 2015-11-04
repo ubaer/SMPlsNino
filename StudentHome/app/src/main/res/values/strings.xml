@@ -3,4 +3,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_main_menu">MainMenu</string>
+    <string name="title_activity_avondeten">AvondetenActivity</string>
+    <string name="title_activity_avondeten_view">AvondetenView</string>
+    <string name="title_activity_avondeten_nieuw">AvondetenNieuw</string>
+    <string name="title_activity_ranking">Ranking</string>
+    <string name="title_activity_avondeten_cook_off">AvondetenCookOff</string>
 </resources>

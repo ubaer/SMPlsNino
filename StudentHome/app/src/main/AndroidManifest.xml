@@ -20,6 +20,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainMenu"
+            android:label="@string/title_activity_main_menu" >
+        </activity>
+        <activity
+            android:name=".AvondetenOverzicht"
+            android:label="@string/title_activity_avondeten" >
+        </activity>
+        <activity
+            android:name=".AvondetenView"
+            android:label="@string/title_activity_avondeten_view" >
+        </activity>
+        <activity
+            android:name=".AvondetenNieuw"
+            android:label="@string/title_activity_avondeten_nieuw" >
+        </activity>
+        <activity
+            android:name=".AvondetenCookOff"
+            android:label="@string/title_activity_avondeten_cook_off" >
+        </activity>
     </application>
 
 </manifest>
