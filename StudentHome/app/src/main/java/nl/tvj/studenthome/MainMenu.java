@@ -26,14 +26,14 @@ public class MainMenu extends AppCompatActivity {
         studentenhuis = gson.fromJson(s, Studentenhuis.class);
 
         //  TODO Verander 'MainMenu' tekst in action bar naar studentenhuis naam
-        //  TODO Gebruik 'menu slider' waar je naar 'AvondetenActivity' of 'ra nking' kan gaan en kan uitloggen
+        //  TODO Gebruik 'menu slider' waar je naar 'AvondetenActivity' of 'Ranking' kan gaan en kan uitloggen
         //  TODO Laat in het midden van huidige scherm info van het huidige studentenhuis zien
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main_menu, menu);
         return true;
     }
 
