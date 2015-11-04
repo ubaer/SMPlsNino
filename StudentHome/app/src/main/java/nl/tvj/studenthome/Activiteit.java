@@ -83,4 +83,9 @@ public abstract class Activiteit {
     public ArrayList<Gebruiker> getDeelnemers() {
         return this.deelnemers;
     }
+
+    @Override
+    public String toString(){
+        return omschrijving + " " + starttijd.toString();
+    }
 }

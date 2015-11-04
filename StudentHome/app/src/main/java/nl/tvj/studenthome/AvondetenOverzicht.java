@@ -1,19 +1,26 @@
 package nl.tvj.studenthome;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class AvondetenOverzicht extends AppCompatActivity {
     private Gebruiker ingelogdeGebruiker;
@@ -38,6 +45,24 @@ public class AvondetenOverzicht extends AppCompatActivity {
         db = new Database();
 
         new getAllAvondEten().execute((Void[]) null);
+
+        ListView lv = (ListView)findViewById(R.id.lvAvondeten);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Avondeten a = (Avondeten)activiteiten.get(position);
+
+                //  Avondeten opslaan in SharedPreferences
+                SharedPreferences sharedPref = getSharedPreferences("User", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("avondeten", a.getId());
+                editor.commit();
+
+                Intent viewAvondeten = new Intent(AvondetenOverzicht.this, AvondetenView.class);
+                System.out.println("Opened avondeten view");
+                AvondetenOverzicht.this.startActivity(viewAvondeten);
+            }
+        });
     }
 
     @Override
@@ -71,7 +96,11 @@ public class AvondetenOverzicht extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            activiteiten = db.getAllAvondEten();
+            try {
+                activiteiten = db.getAllAvondEten();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 

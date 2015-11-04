@@ -1,11 +1,18 @@
 package nl.tvj.studenthome;
 
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 public class AvondetenView extends AppCompatActivity {
+    private int avondetenId;
+    private Avondeten geselecteerdAvondeten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,6 +20,10 @@ public class AvondetenView extends AppCompatActivity {
         setContentView(R.layout.activity_avondeten_view);
 
         //  TODO hier moet de geselecteerde activiteit uit het vorige scherm ('AvondetenActivity') getoond worden met beoordeling etc. als de host van de activiteit de huidige Gordon Ramsey is moet er een mogelijkheid worden gegeven om een CookOff aan te gaan.
+        SharedPreferences sharedPref = getSharedPreferences("User", MODE_PRIVATE);
+        avondetenId = sharedPref.getInt("avondeten", -1);
+
+        new getActiviteit().execute((Void[])null);
     }
 
     @Override
@@ -35,5 +46,19 @@ public class AvondetenView extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public class getActiviteit extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            //geselecteerdAvondeten = db.getAvondEtenByID(avondetenId);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void param) {
+
+        }
     }
 }

@@ -6,7 +6,129 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="nl.tvj.studenthome.AvondetenView">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Omschrijving:"
+        android:id="@+id/tvOmschrijvingTitel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:textColor="#050505" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/tvOmschrijving"
+        android:layout_below="@+id/tvOmschrijvingTitel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:minLines="5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Host:"
+        android:id="@+id/tvHostTitel"
+        android:textColor="#050505"
+        android:layout_below="@+id/tvOmschrijving"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/tvHost"
+        android:layout_below="@+id/tvHostTitel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rbGemiddeldeBeoordeling"
+        android:rating="3"
+        android:numStars="5"
+        android:layout_below="@+id/tvOmschrijving"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Datum:"
+        android:id="@+id/tvDatumTitel"
+        android:textColor="#050505"
+        android:layout_below="@+id/rbGemiddeldeBeoordeling"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Totaalbedrag:"
+        android:id="@+id/tvTotaalbedragTitel"
+        android:textColor="#050505"
+        android:layout_below="@+id/rbGemiddeldeBeoordeling"
+        android:layout_alignLeft="@+id/rbGemiddeldeBeoordeling"
+        android:layout_alignStart="@+id/rbGemiddeldeBeoordeling"
+        android:layout_marginLeft="72dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/tvDatum"
+        android:layout_below="@+id/tvDatumTitel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/tvTotaalbedrag"
+        android:layout_below="@+id/tvTotaalbedragTitel"
+        android:layout_alignLeft="@+id/tvTotaalbedragTitel"
+        android:layout_alignStart="@+id/tvTotaalbedragTitel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Deelnemers:"
+        android:id="@+id/textView4"
+        android:textColor="#050505"
+        android:layout_below="@+id/tvDatum"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
