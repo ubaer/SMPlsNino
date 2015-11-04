@@ -88,6 +88,8 @@ public class AvondetenOverzicht extends AppCompatActivity {
     }
 
     public void btnNieuwAvondeten_Click(View view) {
+        Intent avondetenNieuw = new Intent(this, AvondetenNieuw.class);
+        this.startActivity(avondetenNieuw);
     }
 
     //  TODO 'setOnItemClickListerner' event aanmaken voor lvAvondeten, het is de bedoeling dat je avondeten kan terugkijken met een gemiddelde beoordeling, in het nieuwe scherm waar je dan komt kun je een cook-off aanvragen, mits de gebruiker de huidige gordon ramsey is

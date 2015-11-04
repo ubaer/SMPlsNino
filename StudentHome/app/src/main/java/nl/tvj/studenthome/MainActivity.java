@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
             final ListView lvWieIsThuis = (ListView) findViewById(R.id.lvAanwezigeGebruikers);
             lvWieIsThuis.setAdapter(itemsAdapter);
             swipeLayout.setRefreshing(false);
+            Toast.makeText(MainActivity.this,"Refreshed",Toast.LENGTH_SHORT);
         }
     }
 }

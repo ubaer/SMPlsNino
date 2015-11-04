@@ -114,7 +114,10 @@ public class Database {
         boolean gelukt = false;
         try {
             connect();
-            conn.createStatement().execute("INSERT INTO Activiteit(totdaalbedrag, omschrijving, GebruikerID, starttijd)VALUES(" + activiteit.totaalbedrag + "," + activiteit.omschrijving + "," + activiteit.host.getId() + "," + activiteit.starttijd + ");");
+            java.text.SimpleDateFormat sdf =
+                    new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentTime = sdf.format(activiteit.starttijd);
+            conn.createStatement().execute("INSERT INTO Activiteit(totdaalbedrag, omschrijving, GebruikerID, starttijd)VALUES(" + activiteit.totaalbedrag + "," +"\"" + activiteit.omschrijving + "\""+ "," + activiteit.host.getId() + "," + currentTime+ ");");
             int maxID = getMaxActiviteitID();
             conn.createStatement().execute("INSERT INTO Activiteit_Studentenhuis VALUES ("+studentenhuis.getId()+","+maxID+") "); // toevoegen aan Studenthuis Activiteit
             gelukt = true;

@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by Kevin on 15-10-2015.
  */
 public abstract class Activiteit {
-    int id;
+    Integer id;
     double totaalbedrag;
     String omschrijving;
     Gebruiker host;
@@ -31,6 +31,13 @@ public abstract class Activiteit {
         db = new Database();
         iedereenGestemd = false;
         votingOptions = new ArrayList<>();
+    }
+
+    public Activiteit(double totaalbedrag, String omschrijving, Gebruiker host, Date starttijd) {
+        this.totaalbedrag = totaalbedrag;
+        this.omschrijving = omschrijving;
+        this.host = host;
+        this.starttijd = starttijd;
     }
 
     public int getId() {

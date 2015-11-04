@@ -27,9 +27,9 @@
             android:layout_height="229dp"
             android:id="@+id/lvAanwezigeGebruikers"
             android:layout_column="0"
-            android:layout_alignBottom="@+id/button2"
-            android:layout_toRightOf="@+id/button2"
-            android:layout_toEndOf="@+id/button2"
+            android:layout_alignBottom="@+id/btnCreateEvent"
+            android:layout_toRightOf="@+id/btnCreateEvent"
+            android:layout_toEndOf="@+id/btnCreateEvent"
             android:layout_row="0" />
     </GridLayout>
     </ScrollView>
