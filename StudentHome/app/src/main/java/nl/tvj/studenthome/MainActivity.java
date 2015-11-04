@@ -1,6 +1,7 @@
 package nl.tvj.studenthome;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.lang.reflect.Array;
 import java.sql.SQLException;
@@ -22,22 +25,20 @@ public class MainActivity extends AppCompatActivity {
     LocationListener locationListener;
     Database dbm = new Database();
     Gebruiker gebruiker;
+    Studentenhuis studentenhuis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Thread mythread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    gebruiker = dbm.getGebruikerVanGebruikersnaam("uber");
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        mythread.start();
+        //Het ophalen van de gebruiker en het studentenhuis uit de shared preferences
+        SharedPreferences sharedPref = getSharedPreferences("User", Context.MODE_PRIVATE);
+        String g = sharedPref.getString("logedInUser", "");
+        String s = sharedPref.getString("home", "");
+        Gson gson = new Gson();
+        gebruiker = gson.fromJson(g, Gebruiker.class);
+        studentenhuis = gson.fromJson(s, Studentenhuis.class);
+        //Userlokatie update starten
         setUserLocation();
     }
 

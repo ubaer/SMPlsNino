@@ -270,4 +270,85 @@ public class Database {
         }
         return allActiviteiten;
     }
+    public boolean checkLoginGegevens(String username, String password) throws SQLException {
+        boolean result = false;
+        int id = 0;
+        try {
+            connect();
+            ResultSet rs = conn.prepareStatement("SELECT COUNT(ID) AS aantal FROM `Gebruiker` WHERE gebruikersnaam = \""+username+"\" AND wachtwoord = \""+password+"\"; ").executeQuery();
+            while (rs.next()) {
+                 id = rs.getInt(1);
+            }
+            if(id > 0)
+            {
+                result = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
+        return result;
+    }
+    public Studentenhuis getStudentenHuis(int studentenHuisID) throws SQLException {
+        Studentenhuis studentenhuis = null;
+        try {
+            connect();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM StudentenHuis WHERE ID = "+studentenHuisID+"").executeQuery();
+            while (rs.next()) {
+                int id =  rs.getInt(1);
+                String adres = rs.getString(2);
+                String vestigingsplaats = rs.getString(3);
+                String postcode = rs.getString(4);
+                String naam = rs.getString(7) ;
+                studentenhuis = new Studentenhuis(id, adres, vestigingsplaats, postcode, naam);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
+        return studentenhuis;
+    }
+    public Avondeten getAvondEtenByID(int avondEtenID) throws SQLException {
+        Avondeten avondeten = null;
+        int gebruikerID = 0;
+        try {
+            connect();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM Activiteit ").executeQuery();
+            while (rs.next()) {
+                int id  = rs.getInt(1);
+                Double totaalbedrag =  rs.getDouble(2);
+                String omschrijving = rs.getString(3);
+                gebruikerID = rs.getInt(4);
+                Date starttijd = rs.getDate(5);
+                avondeten = new Avondeten(id,totaalbedrag,omschrijving,starttijd);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
+        avondeten.host = getGebruikerByGebruikersID(gebruikerID);
+        return avondeten;
+    }
+    public Gebruiker getGebruikerByGebruikersID(int userID) throws SQLException {
+        Gebruiker returnGebruiker = null;
+        try {
+            connect();
+            ResultSet rs = conn.prepareStatement("SELECT g.* FROM Gebruiker g, StudentenHuis sh WHERE sh.`ID` = 1 AND g.`StudentenhuisID` = sh.`ID` AND g.ID = \""+userID+"\"").executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String gnaam = rs.getString(2);
+                String wachtwoord = rs.getString(3);
+                String naam = rs.getString(4);
+                returnGebruiker = new Gebruiker(id, gnaam, wachtwoord, naam);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            conn.close();
+        }
+        return returnGebruiker;
+    }
 }

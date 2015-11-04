@@ -33,6 +33,18 @@ public class Studentenhuis {
         this.activiteiten = new ArrayList<>();
         db = new Database();
     }
+    public Studentenhuis(int id, String adres, String verstigingsplaats, String postcode, String naam) {
+        this.id = id;
+        this.huisBaas = null;
+        this.adres = adres;
+        this.verstigingsplaats = verstigingsplaats;
+        this.postcode = postcode;
+        this.naam = naam;
+        this.huisBewoners = new ArrayList<>();
+        this.klasseringen = new ArrayList<>();
+        this.activiteiten = new ArrayList<>();
+        db = new Database();
+    }
     public String getNaam(){
         return naam;
     }

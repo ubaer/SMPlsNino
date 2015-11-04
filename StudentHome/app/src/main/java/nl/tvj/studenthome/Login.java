@@ -1,5 +1,6 @@
 package nl.tvj.studenthome;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -9,14 +10,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.sql.SQLException;
+
 public class Login extends AppCompatActivity {
     private Database db;
     private boolean connected;
-
+    EditText editUsername;
+    EditText editPassword;
+    String username;
+    String password;
+    Gebruiker g;
+    Studentenhuis s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +33,8 @@ public class Login extends AppCompatActivity {
 
         db = new Database();
         connected = false;
-
-        new showConnectionResult().execute((Void[]) null);
+        editUsername = (EditText) findViewById(R.id.tbUsername);
+        editPassword = (EditText) findViewById(R.id.tbPassword);
     }
 
     @Override
@@ -51,25 +60,43 @@ public class Login extends AppCompatActivity {
     }
 
     public void btnLoginClick(View view) {
-
+        username = editUsername.getText().toString();
+        password = editPassword.getText().toString();
+        new showConnectionResult().execute((Void[]) null);
     }
 
     private class showConnectionResult extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            connected = db.connect();
+            db.connect();
+
+            try {
+                connected = db.checkLoginGegevens(username, password);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+             g = null;
+            try {
+                g = db.getGebruikerVanGebruikersnaam(username);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            s = null;
+            try {
+                s = db.getStudentenHuis(1);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void param) {
             if (connected) {
-                Toast.makeText(Login.this, "Database connectie geslaagd", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "Logged in!", Toast.LENGTH_SHORT).show();
                 System.out.println("Database connectie geslaagd");
 
                 //  Gebruiker en studentenhuis ophalen uit de database
-                Gebruiker g = null;
-                Studentenhuis s = null;
 
                 //  Omzetten naar JSON objecten zodat deze in de Shared Preferences opgeslagen kunnen
                 //  worden
@@ -81,20 +108,21 @@ public class Login extends AppCompatActivity {
 
                     //  In shared preferences de session (ingelogde gebruiker en bijbehorende studentenhuis)
                     //  opslaan
-                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(Login.this);
+                    SharedPreferences sharedPref  = getSharedPreferences("User", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("user", ingelogdeGebruiker);
+                    editor.putString("logedInUser", ingelogdeGebruiker);
                     editor.putString("home", studentenhuis);
+                    editor.commit();
                 }
 
                 //  Open 'main menu' scherm van een studentenhuis
-                Intent mainMenu = new Intent(Login.this, MainMenu.class);
+                Intent mainActivity = new Intent(Login.this, MainActivity.class);
                 System.out.println("Opened main menu");
-                Login.this.startActivity(mainMenu);
+                Login.this.startActivity(mainActivity);
             }
             else
             {
-                Toast.makeText(Login.this, "Database connectie gefaald", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "Login informatie verkeerd", Toast.LENGTH_SHORT).show();
                 System.out.println("Database connectie gefaald");
             }
         }
