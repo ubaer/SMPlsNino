@@ -37,7 +37,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText" />
+            android:id="@+id/tbPassword"
+            android:password="true" />
 
         <Button
             android:layout_width="wrap_content"
@@ -46,5 +47,16 @@
             android:id="@+id/button"
             android:layout_gravity="center_horizontal"
             android:onClick="btnLoginClick"/>
+
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="StudentHome"
+        android:textSize="80px"
+        android:id="@+id/textView4"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

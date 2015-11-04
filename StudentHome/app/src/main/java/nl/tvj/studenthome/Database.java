@@ -270,4 +270,44 @@ public class Database {
         }
         return allActiviteiten;
     }
+    public boolean checkLoginGegevens(String username, String password) throws SQLException {
+        boolean result = false;
+        int id = 0;
+        try {
+            connect();
+            ResultSet rs = conn.prepareStatement("SELECT COUNT(ID) AS aantal FROM `Gebruiker` WHERE gebruikersnaam = \""+username+"\" AND wachtwoord = \""+password+"\"; ").executeQuery();
+            while (rs.next()) {
+                 id = rs.getInt(1);
+            }
+            if(id > 0)
+            {
+                result = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
+        return result;
+    }
+    public Studentenhuis getStudentenHuis(int studentenHuisID) throws SQLException {
+        Studentenhuis studentenhuis = null;
+        try {
+            connect();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM StudentenHuis WHERE ID = "+studentenHuisID+"").executeQuery();
+            while (rs.next()) {
+                int id =  rs.getInt(1);
+                String adres = rs.getString(2);
+                String vestigingsplaats = rs.getString(3);
+                String postcode = rs.getString(4);
+                String naam = rs.getString(7) ;
+                studentenhuis = new Studentenhuis(id, adres, vestigingsplaats, postcode, naam);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
+        return studentenhuis;
+    }
 }
