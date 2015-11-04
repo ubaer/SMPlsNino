@@ -62,7 +62,8 @@
         android:layout_below="@+id/tvOmschrijving"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:clickable="false" />
+        android:foregroundTint="#ff6500"
+        android:indeterminateTint="#ff6500" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -126,9 +127,23 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
+        android:id="@+id/lvDeelnemers"
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/btnDaagUit" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daag uit voor CookOff"
+        android:id="@+id/btnDaagUit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/lvDeelnemers"
+        android:layout_alignEnd="@+id/lvDeelnemers"
+        android:clickable="false"
+        android:onClick="btnDaagUit_Click"/>
 
 </RelativeLayout>
