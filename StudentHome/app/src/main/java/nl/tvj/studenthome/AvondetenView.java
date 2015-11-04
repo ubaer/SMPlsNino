@@ -86,12 +86,16 @@ public class AvondetenView extends AppCompatActivity {
     }
 
     public void btnDaagUit_Click(View view) {
-        if (((Button)view).isClickable()) {
-            //  TODO ga naar cook off scherm
-        }
-        else {
-            Toast.makeText(AvondetenView.this, "Host kan alleen uitgedaagd worden voor CookOff als hij 'Gordon Ramsey' is", Toast.LENGTH_LONG).show();
-        }
+
+        Thread mythread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                geselecteerdAvondeten.addDeelnemer(ingelogdeGebruiker);
+            }
+        });
+        mythread.start();
+            Toast.makeText(AvondetenView.this, "Aangemeld!", Toast.LENGTH_LONG).show();
+            new getActiviteit().execute((Void[]) null);
     }
 
     public class getActiviteit extends AsyncTask<Void, Void, Void> {
@@ -124,7 +128,7 @@ public class AvondetenView extends AppCompatActivity {
             TextView bedrag = (TextView)findViewById(R.id.tvTotaalbedrag);
             bedrag.setText(String.valueOf(geselecteerdAvondeten.totaalbedrag));
 
-            ArrayList<Gebruiker> alDeelnemers = geselecteerdAvondeten.getDeelnemers();
+            ArrayList<Gebruiker> alDeelnemers = geselecteerdAvondeten.deelnemers;
 
             if (alDeelnemers.isEmpty()) {
                 ListView lvDeelnemers = (ListView)findViewById(R.id.lvDeelnemers);
@@ -157,7 +161,13 @@ public class AvondetenView extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            gelukt = studentenhuis.addBeoordeling(geselecteerdAvondeten, beoordeling, ingelogdeGebruiker);
+         //   gelukt = studentenhuis.addBeoordeling(geselecteerdAvondeten, beoordeling, ingelogdeGebruiker);
+            Beoordeling beoordelingFull = new Beoordeling(ingelogdeGebruiker, beoordeling);
+            try {
+                geselecteerdAvondeten.addBeoordeling(beoordelingFull);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 

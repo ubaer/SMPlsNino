@@ -11,4 +11,14 @@
     <string name="title_activity_avondeten_nieuw">AvondetenNieuw</string>
     <string name="title_activity_ranking">Ranking</string>
     <string name="title_activity_avondeten_cook_off">AvondetenCookOff</string>
+
+    <string-array name="items">
+        <item>Avondeten overzicht</item>
+        <item>Avondeten aanmaken</item>
+        <item>Rankings</item>
+        <item>Logout</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

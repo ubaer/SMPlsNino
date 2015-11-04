@@ -88,7 +88,7 @@ public class Database {
         boolean gelukt = false;
         try {
             connect();
-            conn.createStatement().execute("UPDATE  ActiviteitGebruiker SET beoordeling = "+beoordeling.getBeoordeling() +" WHERE activiteitID ="+ activiteit.getId()+ "AND gebruikerID ="+ beoordeling.beoordeeldDoor.getId() );
+            conn.createStatement().execute("UPDATE  ActiviteitGebruiker SET beoordeling = "+beoordeling.beoordeling +" WHERE activiteitID =     "+ activiteit.id + "AND gebruikerID = "+ beoordeling.beoordeeldDoor.id );
             gelukt = true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,7 +117,7 @@ public class Database {
             java.text.SimpleDateFormat sdf =
                     new java.text.SimpleDateFormat("yy-MM-dd HH:mm:ss");
             String currentTime = sdf.format(activiteit.starttijd);
-            conn.createStatement().execute("INSERT INTO Activiteit(totdaalbedrag, omschrijving, GebruikerID, starttijd)VALUES(" + activiteit.totaalbedrag + "," +"\"" + activiteit.omschrijving + "\""+ "," + activiteit.host.getId() + "," + "\""+currentTime+ "\");");
+            conn.createStatement().execute("INSERT INTO Activiteit(totdaalbedrag, omschrijving, GebruikerID, starttijd)VALUES(" + activiteit.totaalbedrag + "," + "\"" + activiteit.omschrijving + "\"" + "," + activiteit.host.getId() + "," + "\"" + currentTime + "\");");
             int maxID = getMaxActiviteitID();
             conn.createStatement().execute("INSERT INTO Activiteit_Studentenhuis VALUES ("+studentenhuis.getId()+","+maxID+") "); // toevoegen aan Studenthuis Activiteit
             gelukt = true;
@@ -318,7 +318,7 @@ public class Database {
         int gebruikerID = 0;
         try {
             connect();
-            ResultSet rs = conn.prepareStatement("SELECT * FROM Activiteit ").executeQuery();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM Activiteit WHERE id = "+avondEtenID).executeQuery();
             while (rs.next()) {
                 int id  = rs.getInt(1);
                 Double totaalbedrag =  rs.getDouble(2);
@@ -333,7 +333,28 @@ public class Database {
             conn.close();
         }
         avondeten.host = getGebruikerByGebruikersID(gebruikerID);
+        avondeten.addDeelnemersToActiviteit(getGebruikersActiviteit(avondeten.getId()));
         return avondeten;
+    }
+    public ArrayList<Gebruiker>getGebruikersActiviteit(int activiteitID) throws SQLException {
+        ArrayList<Gebruiker>deelnemers = new ArrayList<>();
+        try {
+            connect();
+            ResultSet rs = conn.prepareStatement("SELECT g.* FROM Gebruiker g, ActiviteitGebruiker ag WHERE ag.gebruikerID = g.ID AND ag.activiteitID = "+activiteitID).executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String gebruikersnaam = rs.getString(2);
+                String wachtwoord = rs.getString(3);
+                String naam = rs.getString(4);
+                Gebruiker gebruiker = new Gebruiker(id, gebruikersnaam, wachtwoord, naam);
+                deelnemers.add(gebruiker);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
+        return deelnemers;
     }
     public Gebruiker getGebruikerByGebruikersID(int userID) throws SQLException {
         Gebruiker returnGebruiker = null;

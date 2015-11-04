@@ -60,6 +60,10 @@ public abstract class Activiteit {
         }
         return true;
     }
+    public void addDeelnemersToActiviteit(ArrayList<Gebruiker>deelnemers)
+    {
+        this.deelnemers = deelnemers;
+    }
 
     public void setTotaalbedrag(double totaalbedrag) {
         this.totaalbedrag = totaalbedrag;

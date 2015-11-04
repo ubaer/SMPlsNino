@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     Studentenhuis studentenhuis;
     ArrayList<Gebruiker>wieIsThuis = new ArrayList<>();
     SwipeRefreshLayout  swipeLayout;
+    //menuding
+    private String[] drawerListViewItems;
+    private ListView drawerListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +62,17 @@ public class MainActivity extends AppCompatActivity {
                 new addListThuis().execute((Void[]) null);
             }
         });
+        //Menulist ding
+        // get list items from strings.xml
+        drawerListViewItems = getResources().getStringArray(R.array.items);
+
+        // get ListView defined in activity_main.xml
+        drawerListView = (ListView) findViewById(R.id.left_drawer);
+
+        // Set the adapter for the list view
+        drawerListView.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_listview_item, drawerListViewItems));
+        drawerListView.setOnItemClickListener(new DrawerItemClickListener());
     }
 
     @Override
@@ -126,6 +141,30 @@ public class MainActivity extends AppCompatActivity {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         }catch(Exception ex){
             ex.printStackTrace();
+        }
+    }
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            Toast.makeText(MainActivity.this, ((TextView)view).getText(), Toast.LENGTH_LONG).show();
+
+            if(position == 0) {
+                Intent avondetenOverzicht = new Intent(MainActivity.this, AvondetenOverzicht.class);
+                MainActivity.this.startActivity(avondetenOverzicht);
+            }
+            if(position == 1) {
+                Intent avondetenOverzicht = new Intent(MainActivity.this, AvondetenNieuw.class);
+                MainActivity.this.startActivity(avondetenOverzicht);
+            }
+            if(position == 2) {
+                Intent avondetenOverzicht = new Intent(MainActivity.this, AvondetenOverzicht.class);
+                MainActivity.this.startActivity(avondetenOverzicht);
+            }
+            if(position == 3) {
+                Intent avondetenOverzicht = new Intent(MainActivity.this, Login.class);
+                MainActivity.this.startActivity(avondetenOverzicht);
+            }
+
         }
     }
     private class addListThuis extends AsyncTask<Void, Void, Void> {
