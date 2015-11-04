@@ -13,4 +13,8 @@ public class Avondeten extends Activiteit {
         super(id, totaalbedrag, omschrijving, host, startijd);
         votingOptions = new ArrayList<>();
     }
+    Avondeten(int id, double totaalbedrag, String omschrijving, Date startijd) {
+        super(id, totaalbedrag, omschrijving, null, startijd);
+        votingOptions = new ArrayList<>();
+    }
 }

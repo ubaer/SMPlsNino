@@ -2,6 +2,7 @@ package nl.tvj.studenthome;
 
 import android.os.StrictMode;
 
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Array;
 import java.sql.Connection;
 
@@ -248,5 +249,25 @@ public class Database {
             conn.close();
         }
         return GebruikerAVGScore;
+    }
+    public ArrayList<Activiteit>getAllAvondEten(int studentenHuisNr) throws SQLException {
+        ArrayList<Activiteit>allActiviteiten = new ArrayList<>();
+        try {
+            connect();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM Activiteit").executeQuery();
+            while (rs.next()) {
+                int id  = rs.getInt(1);
+                Double totaalbedrag =  rs.getDouble(2);
+                String omschrijving = rs.getString(3);
+                Date starttijd = rs.getDate(5);
+                Avondeten avondeten = new Avondeten(id,totaalbedrag,omschrijving,starttijd);
+                allActiviteiten.add(avondeten);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
+        return allActiviteiten;
     }
 }
