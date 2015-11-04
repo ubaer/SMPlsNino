@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -47,6 +48,10 @@ public class Login extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void btnLoginClick(View view) {
+
     }
 
     private class showConnectionResult extends AsyncTask<Void, Void, Void> {

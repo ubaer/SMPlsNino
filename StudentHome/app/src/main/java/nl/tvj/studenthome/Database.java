@@ -250,11 +250,11 @@ public class Database {
         }
         return GebruikerAVGScore;
     }
-    public ArrayList<Activiteit>getAllAvondEten(int studentenHuisNr) throws SQLException {
+    public ArrayList<Activiteit>getAllAvondEten() throws SQLException {
         ArrayList<Activiteit>allActiviteiten = new ArrayList<>();
         try {
             connect();
-            ResultSet rs = conn.prepareStatement("SELECT * FROM Activiteit").executeQuery();
+            ResultSet rs = conn.prepareStatement("SELECT * FROM Activiteit ").executeQuery();
             while (rs.next()) {
                 int id  = rs.getInt(1);
                 Double totaalbedrag =  rs.getDouble(2);
