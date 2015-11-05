@@ -42,7 +42,7 @@
 
                 <ListView
                     android:layout_width="wrap_content"
-                    android:layout_height="229dp"
+                    android:layout_height="275dp"
                     android:id="@+id/lvAanwezigeGebruikers"
                     android:layout_column="0"
                     android:layout_alignBottom="@+id/btnCreateEvent"
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Aanwezig:"
+                android:text="Aanwezige gekken"
                 android:id="@+id/textView5"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"

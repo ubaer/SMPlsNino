@@ -180,7 +180,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void param) {
-            final ArrayAdapter<Gebruiker> itemsAdapter = new ArrayAdapter<Gebruiker>(MainActivity.this, android.R.layout.simple_list_item_1, wieIsThuis);
+            String[] aanwezigeMensen = {"Kevin","Nino"};
+            final ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, aanwezigeMensen);
             final ListView lvWieIsThuis = (ListView) findViewById(R.id.lvAanwezigeGebruikers);
             lvWieIsThuis.setAdapter(itemsAdapter);
             swipeLayout.setRefreshing(false);

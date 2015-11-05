@@ -105,11 +105,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:src="@drawable/dollarsack"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Totale kosten:"
+                android:text="Cashmoney :"
                 android:id="@+id/textView6" />
 
             <EditText
@@ -150,7 +156,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Event"
+        android:text="Get Crazy!"
         android:id="@+id/btnCreateEvent"
         android:layout_below="@+id/linearLayout4"
         android:layout_centerHorizontal="true"

@@ -69,6 +69,12 @@ public class Ranking extends AppCompatActivity {
             final ArrayAdapter<Gebruiker> itemsAdapter = new ArrayAdapter<Gebruiker>(Ranking.this, android.R.layout.simple_list_item_1, listRankings);
             final ListView lvRankings = (ListView) findViewById(R.id.lvRankings);
             lvRankings.setAdapter(itemsAdapter);
+
+            final String[] laatWaterVerbranden = { "Nino score: 1,5" };
+            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(Ranking.this, android.R.layout.simple_list_item_1, laatWaterVerbranden);
+            final ListView lvLWV = (ListView)findViewById(R.id.listView);
+            lvLWV.setAdapter(adapter);
+
             swipeLayout.setRefreshing(false);
         }
     }
