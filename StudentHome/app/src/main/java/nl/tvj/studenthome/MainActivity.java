@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(avondetenOverzicht);
             }
             if(position == 2) {
-                Intent avondetenOverzicht = new Intent(MainActivity.this, AvondetenOverzicht.class);
+                Intent avondetenOverzicht = new Intent(MainActivity.this, Ranking.class);
                 MainActivity.this.startActivity(avondetenOverzicht);
             }
             if(position == 3) {

@@ -56,7 +56,7 @@ public class AvondetenView extends AppCompatActivity {
         rb.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                beoordeling = ((RatingBar)findViewById(R.id.rbGemiddeldeBeoordeling)).getNumStars();
+                beoordeling = ((RatingBar)findViewById(R.id.rbGemiddeldeBeoordeling)).getRating();
 
                 new addBeoordeling().execute((Void[])null);
             }
@@ -164,7 +164,8 @@ public class AvondetenView extends AppCompatActivity {
          //   gelukt = studentenhuis.addBeoordeling(geselecteerdAvondeten, beoordeling, ingelogdeGebruiker);
             Beoordeling beoordelingFull = new Beoordeling(ingelogdeGebruiker, beoordeling);
             try {
-                geselecteerdAvondeten.addBeoordeling(beoordelingFull);
+                db.addBeoordeling(geselecteerdAvondeten, beoordelingFull);
+             //   geselecteerdAvondeten.addBeoordeling(beoordelingFull);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

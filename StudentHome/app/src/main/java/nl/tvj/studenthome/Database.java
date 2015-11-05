@@ -88,7 +88,7 @@ public class Database {
         boolean gelukt = false;
         try {
             connect();
-            conn.createStatement().execute("UPDATE  ActiviteitGebruiker SET beoordeling = "+beoordeling.beoordeling +" WHERE activiteitID =     "+ activiteit.id + "AND gebruikerID = "+ beoordeling.beoordeeldDoor.id );
+            conn.createStatement().execute("UPDATE  ActiviteitGebruiker SET beoordeling = "+beoordeling.beoordeling+" WHERE activiteitID = "+activiteit.id+" AND gebruikerID = "+beoordeling.beoordeeldDoor.id+"");
             gelukt = true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -219,7 +219,7 @@ public class Database {
         ArrayList<Gebruiker> gebruikers = new ArrayList<>();
         try {
             connect();
-            ResultSet rs = conn.prepareStatement("SELECT g.* FROM Gebruiker g, LocatieGebruiker lg, StudentenHuis sh WHERE g.ID = lg.gebruikerID AND g.StudentenhuisID = sh.ID AND lg.lat BETWEEN sh.latitude-1 AND sh.latitude+1  AND lg.long BETWEEN sh.longitude-1 AND sh.longitude +1 AND sh.ID = "+studentenhuisID).executeQuery();
+            ResultSet rs = conn.prepareStatement("SELECT g.gebruikersnaam, AVG(ag.beoordeling) AS average FROM ActiviteitGebruiker ag, Gebruiker g, Activiteit a WHERE g.ID = a.GebruikerID AND a.id = ag.activiteitID GROUP BY ag.gebruikerID ORDER BY average DESC").executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String gebruikersnaam = rs.getString(2);

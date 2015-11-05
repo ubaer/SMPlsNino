@@ -42,6 +42,13 @@ public class Gebruiker {
 
     @Override
     public String toString() {
-        return naam;
+        if(avgRating == 0) {
+            return naam;
+        }
+        if(avgRating > 0)
+        {
+            return gebruikersnaam +" score: "+ Double.toString(avgRating);
+        }
+        return "error";
     }
 }
