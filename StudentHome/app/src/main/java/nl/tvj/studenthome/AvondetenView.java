@@ -50,7 +50,7 @@ public class AvondetenView extends AppCompatActivity {
 
         db = new Database();
 
-        new getActiviteit().execute((Void[])null);
+        new getActiviteit().execute((Void[]) null);
 
         RatingBar rb = (RatingBar)findViewById(R.id.rbGemiddeldeBeoordeling);
         rb.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -152,7 +152,8 @@ public class AvondetenView extends AppCompatActivity {
                 lvDeelnemers.setAdapter(adapter);
             }
 
-            //  TODO bepaal of button clickable is (kijk of host gordon ramsey van 't moment is)
+            Button btn = (Button)findViewById(R.id.btnDaagUit);
+            btn.setText("Join #Eat" + geselecteerdAvondeten.host.getNaam() + "\'sFoodChallenge");
         }
     }
 

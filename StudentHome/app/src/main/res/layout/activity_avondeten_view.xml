@@ -115,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Deelnemers:"
+        android:text="Waaghalzen:"
         android:id="@+id/textView4"
         android:textColor="#050505"
         android:layout_below="@+id/tvDatum"
@@ -136,7 +136,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Deelnemen"
+        android:text="Ik durf het aan"
         android:id="@+id/btnDaagUit"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -145,5 +145,13 @@
         android:layout_alignEnd="@+id/lvDeelnemers"
         android:clickable="true"
         android:onClick="btnDaagUit_Click"/>
+
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:layout_above="@+id/tvTotaalbedragTitel"
+        android:layout_alignLeft="@+id/rbGemiddeldeBeoordeling"
+        android:layout_alignStart="@+id/rbGemiddeldeBeoordeling" />
 
 </RelativeLayout>
