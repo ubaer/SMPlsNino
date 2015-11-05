@@ -9,7 +9,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Organiseer avondeten"
+        android:text="Earn Michelin Stars"
         android:id="@+id/btnNieuwAvondeten"
         android:layout_gravity="center"
         android:layout_alignParentTop="true"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Avondeten in het verleden:"
+        android:text="Plates of the past:"
         android:id="@+id/textView"
         android:layout_below="@+id/btnNieuwAvondeten"
         android:layout_alignParentLeft="true"

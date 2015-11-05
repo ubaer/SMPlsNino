@@ -53,18 +53,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <RatingBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rbGemiddeldeBeoordeling"
-        android:rating="3"
-        android:numStars="5"
-        android:layout_below="@+id/tvOmschrijving"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:foregroundTint="#ff6500"
-        android:indeterminateTint="#ff6500" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,10 +60,9 @@
         android:text="Datum:"
         android:id="@+id/tvDatumTitel"
         android:textColor="#050505"
-        android:layout_below="@+id/rbGemiddeldeBeoordeling"
+        android:layout_below="@+id/tvHost"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="5dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,12 +71,8 @@
         android:text="Totaalbedrag:"
         android:id="@+id/tvTotaalbedragTitel"
         android:textColor="#050505"
-        android:layout_below="@+id/rbGemiddeldeBeoordeling"
-        android:layout_alignLeft="@+id/rbGemiddeldeBeoordeling"
-        android:layout_alignStart="@+id/rbGemiddeldeBeoordeling"
-        android:layout_marginLeft="72dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_below="@+id/seekBar"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -150,8 +133,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/seekBar"
-        android:layout_above="@+id/tvTotaalbedragTitel"
-        android:layout_alignLeft="@+id/rbGemiddeldeBeoordeling"
-        android:layout_alignStart="@+id/rbGemiddeldeBeoordeling" />
+        android:layout_alignBottom="@+id/tvHost"
+        android:layout_toRightOf="@+id/tvOmschrijvingTitel"
+        android:layout_alignRight="@+id/tvOmschrijving"
+        android:layout_alignEnd="@+id/tvOmschrijving"
+        android:max="50"
+        android:focusable="true"
+        android:progressTint="#f26500"
+        android:thumbTint="#f26500"
+        android:layout_alignTop="@+id/tvHost" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_alignBottom="@+id/tvHostTitel"
+        android:layout_alignLeft="@+id/seekBar"
+        android:layout_alignStart="@+id/seekBar"
+        android:src="@drawable/dogpuke" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_alignRight="@+id/tvOmschrijving"
+        android:layout_alignEnd="@+id/tvOmschrijving"
+        android:src="@drawable/gordonramsey"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_toRightOf="@+id/tvTotaalbedragTitel"
+        android:layout_toEndOf="@+id/tvTotaalbedragTitel"
+        android:layout_marginLeft="72dp"
+        android:layout_marginStart="72dp" />
 
 </RelativeLayout>

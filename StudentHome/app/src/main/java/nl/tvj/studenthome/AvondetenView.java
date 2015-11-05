@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,13 +53,23 @@ public class AvondetenView extends AppCompatActivity {
 
         new getActiviteit().execute((Void[]) null);
 
-        RatingBar rb = (RatingBar)findViewById(R.id.rbGemiddeldeBeoordeling);
-        rb.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        SeekBar rb = (SeekBar)findViewById(R.id.seekBar);
+        rb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                beoordeling = ((RatingBar)findViewById(R.id.rbGemiddeldeBeoordeling)).getRating();
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                beoordeling = ((SeekBar) findViewById(R.id.seekBar)).getProgress();
 
-                new addBeoordeling().execute((Void[])null);
+                new addBeoordeling().execute((Void[]) null);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
     }
@@ -163,9 +174,10 @@ public class AvondetenView extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
          //   gelukt = studentenhuis.addBeoordeling(geselecteerdAvondeten, beoordeling, ingelogdeGebruiker);
-            Beoordeling beoordelingFull = new Beoordeling(ingelogdeGebruiker, beoordeling);
+            double dblBeoordeling = beoordeling / 10;
+            Beoordeling beoordelingFull = new Beoordeling(ingelogdeGebruiker, dblBeoordeling);
             try {
-                db.addBeoordeling(geselecteerdAvondeten, beoordelingFull);
+                gelukt = db.addBeoordeling(geselecteerdAvondeten, beoordelingFull);
              //   geselecteerdAvondeten.addBeoordeling(beoordelingFull);
             } catch (SQLException e) {
                 e.printStackTrace();
